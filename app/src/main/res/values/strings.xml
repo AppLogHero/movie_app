@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MovieList</string>
+    <string name="movie_title_tv_text">Movie Title</string>
+    <string name="movie_year_tv_text">Movie Year</string>
+    <string name="movie_genre_tv_text">Movie Genre</string>
+    <string name="movie_released_tv_text">Movie Released</string>
+    <string name="movie_runtime_tv_text">Movie Runtime</string>
+</resources>
