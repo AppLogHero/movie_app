@@ -1,4 +1,4 @@
-package com.example.applog.movielist.Activitys
+package com.example.applog.movielist.Activitys.RecyclerView
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
