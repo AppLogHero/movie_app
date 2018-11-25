@@ -1,16 +1,23 @@
-package com.example.applog.movielist.Activitys.ScrollView
+package com.example.applog.movielist.Activitys
 
 import android.media.Image
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.LinearLayout
+import android.view.MenuItem
+import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.example.applog.movielist.Adapter.NewMovieAdapter
+import com.example.applog.movielist.Adapter.RecommendedMovieAdapter
 import com.example.applog.movielist.R
+import kotlinx.android.synthetic.main.activity_navigation_drawer.*
+import kotlinx.android.synthetic.main.app_bar_navigation_drawer.*
 
-class MovieScrollView: AppCompatActivity() {
+class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     val moviesRecommended: ArrayList<String> = ArrayList()
     val newMovies: ArrayList<String> = ArrayList()
@@ -24,10 +31,12 @@ class MovieScrollView: AppCompatActivity() {
     private lateinit var newMovieViewAdapter: RecyclerView.Adapter<*>
     private lateinit var newMovieViewManager: RecyclerView.LayoutManager
 
+    private lateinit var atTheMomentImageView: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.movie_scrollview)
+        setContentView(R.layout.activity_navigation_drawer)
+        setSupportActionBar(toolbar)
 
         addMovieRecommended()
         addNewMovie()
@@ -52,6 +61,53 @@ class MovieScrollView: AppCompatActivity() {
 
         }
 
+        atTheMomentImageView = findViewById<ImageView>(R.id.imageViewAtThMoment)
+        Glide.with(this)
+            .load("https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg")
+            .into(atTheMomentImageView)
+
+        val toggle = ActionBarDrawerToggle(
+            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        nav_view.setNavigationItemSelectedListener(this)
+    }
+
+    override fun onBackPressed() {
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+        when (item.itemId) {
+            R.id.nav_home -> {
+                // Handle the camera action
+            }
+            R.id.nav_action -> {
+
+            }
+            R.id.nav_adventure -> {
+
+            }
+            R.id.nav_romance -> {
+
+            }
+            R.id.nav_horror -> {
+
+            }
+            R.id.nav_SF -> {
+
+            }
+        }
+
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return true
     }
 
     fun addMovieRecommended() {
@@ -86,5 +142,4 @@ class MovieScrollView: AppCompatActivity() {
         newMovies.add("Movie Title")
 
     }
-
 }

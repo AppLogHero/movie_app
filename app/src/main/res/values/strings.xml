@@ -5,4 +5,10 @@
     <string name="movie_genre_tv_text">Movie Genre</string>
     <string name="movie_released_tv_text">Movie Released</string>
     <string name="movie_runtime_tv_text">Movie Runtime</string>
+    <string name="title_activity_navigation_drawer">Home</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Menu</string>
+    <string name="nav_header_subtitle">itsyou@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
 </resources>
