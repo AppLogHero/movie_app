@@ -1,8 +1,12 @@
 package com.example.applog.movielist.Activitys
 
 import android.media.Image
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -13,11 +17,12 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.applog.movielist.Adapter.NewMovieAdapter
 import com.example.applog.movielist.Adapter.RecommendedMovieAdapter
+import com.example.applog.movielist.Fragment.ActionFragment
 import com.example.applog.movielist.R
 import kotlinx.android.synthetic.main.activity_navigation_drawer.*
 import kotlinx.android.synthetic.main.app_bar_navigation_drawer.*
 
-class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ActionFragment.OnFragmentInteractionListener {
 
     val moviesRecommended: ArrayList<String> = ArrayList()
     val newMovies: ArrayList<String> = ArrayList()
@@ -85,12 +90,20 @@ class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigatio
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
+
+        var fragment: Fragment = Fragment()
+
         when (item.itemId) {
             R.id.nav_home -> {
-                // Handle the camera action
+                supportFragmentManager.beginTransaction().remove(fragment).commit()
             }
             R.id.nav_action -> {
+                fragment = ActionFragment()
+                val fragmentManager: FragmentManager = supportFragmentManager
+                val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+                transaction.replace(R.id.home_activity, ActionFragment())
 
+                transaction.commitNowAllowingStateLoss()
             }
             R.id.nav_adventure -> {
 
@@ -108,6 +121,10 @@ class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigatio
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onFragmentInteraction(uri: Uri) {
+        //
     }
 
     fun addMovieRecommended() {
@@ -143,3 +160,4 @@ class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigatio
 
     }
 }
+

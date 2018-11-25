@@ -8,7 +8,8 @@
         android:background="@color/black"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/app_bar_navigation_drawer"
-        tools:context=".Activitys.NavigationDrawerActivity">
+        tools:context=".Activitys.NavigationDrawerActivity"
+        android:id="@+id/home_activity">
 
     <ScrollView
             android:id="@+id/movie_scrollview"
