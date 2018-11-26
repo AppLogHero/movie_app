@@ -21,13 +21,15 @@
             </intent-filter>
         </activity>
         -->
-        <!--<activity android:name=".Activitys.ScrollView.MovieScrollView">
+        <!--
+        <activity android:name=".Activitys.ScrollView.MovieScrollView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>-->
+        </activity>
+        -->
         <activity
                 android:name=".Activitys.NavigationDrawerActivity"
                 android:label="@string/title_activity_navigation_drawer"
@@ -37,6 +39,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".Activitys.LoginActivity">
         </activity>
     </application>
 

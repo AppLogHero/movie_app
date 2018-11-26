@@ -1,6 +1,5 @@
 package com.example.applog.movielist.Activitys
 
-import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -10,14 +9,9 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
-import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.example.applog.movielist.Adapter.NewMovieAdapter
-import com.example.applog.movielist.Adapter.RecommendedMovieAdapter
 import com.example.applog.movielist.Fragment.*
+import com.example.applog.movielist.Helper.PreferencesHelper
 import com.example.applog.movielist.R
 import kotlinx.android.synthetic.main.activity_navigation_drawer.*
 import kotlinx.android.synthetic.main.app_bar_navigation_drawer.*
@@ -29,6 +23,12 @@ class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigatio
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation_drawer)
         setSupportActionBar(toolbar)
+
+        //Shared Pref
+        val preferencesHelper = PreferencesHelper(this)
+        val  fakeConst = preferencesHelper.fakeConst
+        preferencesHelper.fakeConst = fakeConst
+
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close

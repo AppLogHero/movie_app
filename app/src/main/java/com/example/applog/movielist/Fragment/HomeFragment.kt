@@ -4,7 +4,6 @@ import android.content.Context
 import android.media.Image
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.R.attr.layoutManager
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -12,12 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.example.applog.movielist.Adapter.ActionMovieAdapter
 import com.example.applog.movielist.Adapter.NewMovieAdapter
 import com.example.applog.movielist.Adapter.RecommendedMovieAdapter
 
 import com.example.applog.movielist.R
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,6 +85,21 @@ class HomeFragment : Fragment() {
         Glide.with(this)
             .load("https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg")
             .into(atTheMomentImageView)
+
+        //AsyncTask
+        doAsync {
+
+            for (i in 0..100) {
+                println(i)
+            }
+
+            uiThread {
+                //Update the UI thread here
+                Toast.makeText(context, "AHAHAHAHAHAHAHAH", Toast.LENGTH_LONG).show()
+                println("CACA")
+            }
+
+        }
 
         return rootView
     }
