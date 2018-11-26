@@ -17,59 +17,18 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.applog.movielist.Adapter.NewMovieAdapter
 import com.example.applog.movielist.Adapter.RecommendedMovieAdapter
-import com.example.applog.movielist.Fragment.ActionFragment
+import com.example.applog.movielist.Fragment.*
 import com.example.applog.movielist.R
 import kotlinx.android.synthetic.main.activity_navigation_drawer.*
 import kotlinx.android.synthetic.main.app_bar_navigation_drawer.*
 
-class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ActionFragment.OnFragmentInteractionListener {
-
-    val moviesRecommended: ArrayList<String> = ArrayList()
-    val newMovies: ArrayList<String> = ArrayList()
-    val moviePhotos: ArrayList<Image> = ArrayList()
-
-    private lateinit var recommendedMovieRecyclerView: RecyclerView
-    private lateinit var recommendedMovieViewAdapter: RecyclerView.Adapter<*>
-    private lateinit var recommendedMovieViewManager: RecyclerView.LayoutManager
-
-    private lateinit var newMovieRecyclerView: RecyclerView
-    private lateinit var newMovieViewAdapter: RecyclerView.Adapter<*>
-    private lateinit var newMovieViewManager: RecyclerView.LayoutManager
-
-    private lateinit var atTheMomentImageView: ImageView
+class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener, ActionFragment.OnFragmentInteractionListener, AdventureFragment.OnFragmentInteractionListener, RomanceFragment.OnFragmentInteractionListener, HorrorFragment.OnFragmentInteractionListener, SFFragment.OnFragmentInteractionListener
+{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation_drawer)
         setSupportActionBar(toolbar)
-
-        addMovieRecommended()
-        addNewMovie()
-
-        recommendedMovieViewManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recommendedMovieViewAdapter = RecommendedMovieAdapter(moviesRecommended)
-
-        recommendedMovieRecyclerView = findViewById<RecyclerView>(R.id.recommended_movie_rc).apply {
-
-            layoutManager = recommendedMovieViewManager
-            adapter = recommendedMovieViewAdapter
-
-        }
-
-        newMovieViewManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        newMovieViewAdapter = NewMovieAdapter(newMovies)
-
-        newMovieRecyclerView = findViewById<RecyclerView>(R.id.new_movie_rc).apply {
-
-            layoutManager = newMovieViewManager
-            adapter = newMovieViewAdapter
-
-        }
-
-        atTheMomentImageView = findViewById<ImageView>(R.id.imageViewAtThMoment)
-        Glide.with(this)
-            .load("https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg")
-            .into(atTheMomentImageView)
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
@@ -78,6 +37,15 @@ class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigatio
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        replaceFragement(R.id.home_activity, HomeFragment())
+    }
+
+    private fun replaceFragement(id: Int, fragment: Fragment) {
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+        transaction.replace(id, fragment)
+        transaction.commitNowAllowingStateLoss()
     }
 
     override fun onBackPressed() {
@@ -85,37 +53,37 @@ class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigatio
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
+
         }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
 
-        var fragment: Fragment = Fragment()
-
         when (item.itemId) {
             R.id.nav_home -> {
-                supportFragmentManager.beginTransaction().remove(fragment).commit()
+                title = "Home"
+                replaceFragement(R.id.home_activity, HomeFragment())
             }
             R.id.nav_action -> {
-                fragment = ActionFragment()
-                val fragmentManager: FragmentManager = supportFragmentManager
-                val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-                transaction.replace(R.id.home_activity, ActionFragment())
-
-                transaction.commitNowAllowingStateLoss()
+                title = "Action"
+                replaceFragement(R.id.home_activity, ActionFragment())
             }
             R.id.nav_adventure -> {
-
+                title = "Adventure"
+                replaceFragement(R.id.home_activity, AdventureFragment())
             }
             R.id.nav_romance -> {
-
+                title = "Romance"
+                replaceFragement(R.id.home_activity, RomanceFragment())
             }
             R.id.nav_horror -> {
-
+                title = "Horror"
+                replaceFragement(R.id.home_activity, HorrorFragment())
             }
             R.id.nav_SF -> {
-
+                title = "SF"
+                replaceFragement(R.id.home_activity, SFFragment())
             }
         }
 
@@ -127,37 +95,5 @@ class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigatio
         //
     }
 
-    fun addMovieRecommended() {
-
-        moviesRecommended.add("Movie Title yeah")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-
-    }
-
-    fun addNewMovie() {
-
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-
-    }
 }
 
