@@ -6,17 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.example.applog.movielist.Models.Movie
 import com.example.applog.movielist.R
 import kotlinx.android.synthetic.main.action_movie_list_item.view.*
+import kotlinx.android.synthetic.main.horror_movie_list_item.view.*
 
-class HorrorAdapter(private val myDataset: ArrayList<String>) :
+class HorrorAdapter(private val myDataset: ArrayList<Movie>) :
     RecyclerView.Adapter<HorrorAdapter.HorrorMovieViewHolder>() {
 
     class HorrorMovieViewHolder(val view: View, context: Context) : RecyclerView.ViewHolder(view) {
 
-        val imageView = view.action_movie_imageview
+        val imageView = view.horror_movie_imageview
 
-        //val tvMovieTitle = view.tv_movie_title
+        val title = view.title_tv_horror
+        val runtime = view.time_tv_horror
+        val year = view.year_tv_horror
+        val rate = view.rate_tv_horror
 
         val theSuperContext = context
 
@@ -30,10 +35,14 @@ class HorrorAdapter(private val myDataset: ArrayList<String>) :
     }
 
     override fun onBindViewHolder(holder: HorrorMovieViewHolder, position: Int) {
-        //holder.tvMovieTitle.text = myDataset[position]
+
+        holder.title.text = myDataset[position].title
+        holder.runtime.text = myDataset[position].runtime
+        holder.year.text = myDataset[position].year
+        holder.rate.text = "8.5/10"
 
         Glide.with(holder.theSuperContext)
-            .load("https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg")
+            .load(myDataset[position].poster)
             .into(holder.imageView)
     }
 

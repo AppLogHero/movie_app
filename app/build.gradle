@@ -39,4 +39,7 @@ dependencies {
     implementation 'com.synnapps:carouselview:0.1.5'
     implementation "org.jetbrains.anko:anko-commons:0.10.4"
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    implementation "io.objectbox:objectbox-kotlin:2.2.0"
+
 }

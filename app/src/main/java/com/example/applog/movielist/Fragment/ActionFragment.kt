@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import com.example.applog.movielist.Adapter.ActionMovieAdapter
 import com.example.applog.movielist.Adapter.RecommendedMovieAdapter
 import com.example.applog.movielist.R
+import com.example.applog.movielist.Services.MovieApiService
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -56,7 +57,7 @@ class ActionFragment : Fragment() {
         addMovie()
 
         actionMovieViewManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        actionMovieViewAdapter = ActionMovieAdapter(movies)
+        actionMovieViewAdapter = ActionMovieAdapter(MovieApiService().getActionMovies())
 
         actionMovieRecyclerView = rootView.findViewById<RecyclerView>(R.id.action_movie_rc) as RecyclerView
         actionMovieRecyclerView.layoutManager = actionMovieViewManager

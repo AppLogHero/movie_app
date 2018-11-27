@@ -1,6 +1,7 @@
 package com.example.applog.movielist.Fragment
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.media.Image
 import android.net.Uri
 import android.os.Bundle
@@ -11,14 +12,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.applog.movielist.Adapter.NewMovieAdapter
 import com.example.applog.movielist.Adapter.RecommendedMovieAdapter
+import com.example.applog.movielist.DataBase.MovieDataBase
 
 import com.example.applog.movielist.R
+import com.example.applog.movielist.Services.MovieApiInterface
+import com.example.applog.movielist.Services.MovieApiService
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import org.w3c.dom.Text
+import retrofit2.Retrofit
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,10 +63,15 @@ class HomeFragment : Fragment() {
     private lateinit var newMovieViewManager: RecyclerView.LayoutManager
 
     private lateinit var atTheMomentImageView: ImageView
+    private lateinit var movieTitle: TextView
+    private lateinit var runtime: TextView
+    private lateinit var released: TextView
+    private lateinit var genre: TextView
+    private lateinit var year: TextView
+    private lateinit var description: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -62,46 +79,83 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        //sendGet()
+
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
 
-        addMovieRecommended()
-        addNewMovie()
-
         recommendedMovieViewManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        recommendedMovieViewAdapter = RecommendedMovieAdapter(moviesRecommended)
+        recommendedMovieViewAdapter = RecommendedMovieAdapter(MovieApiService().getSFMovies())
 
         recommendedMovieRecyclerView = rootView.findViewById<RecyclerView>(R.id.recommended_movie_rc) as RecyclerView
         recommendedMovieRecyclerView.layoutManager = recommendedMovieViewManager
         recommendedMovieRecyclerView.adapter = recommendedMovieViewAdapter
 
         newMovieViewManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        newMovieViewAdapter = NewMovieAdapter(newMovies)
+        newMovieViewAdapter = NewMovieAdapter(MovieApiService().getActionMovies())
 
         newMovieRecyclerView = rootView.findViewById<RecyclerView>(R.id.new_movie_rc) as RecyclerView
         newMovieRecyclerView.layoutManager = newMovieViewManager
         newMovieRecyclerView.adapter = newMovieViewAdapter
 
+        val recommendedMovies = MovieApiService().getSFMovies()
+
         atTheMomentImageView = rootView.findViewById<ImageView>(R.id.imageViewAtThMoment)
+
+        //Glide.with(this).load(URL("http://image.tmdb.org/t/p/w185//adw6Lq9FiC9zjYEpOqfq03ituwp.jpg")).into(atTheMomentImageView)
+
         Glide.with(this)
-            .load("https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg")
+            .load( recommendedMovies[0].poster)
             .into(atTheMomentImageView)
+
+        movieTitle = rootView.findViewById<TextView>(R.id.at_the_moment_title)
+        runtime = rootView.findViewById<TextView>(R.id.at_the_moment_runtime)
+        released = rootView.findViewById<TextView>(R.id.at_the_released)
+        genre = rootView.findViewById<TextView>(R.id.at_the_moment_year)
+        description = rootView.findViewById<TextView>(R.id.at_the_moment_description)
+
+        movieTitle.text = recommendedMovies[0].title
+        runtime.text = recommendedMovies[0].runtime
+        released.text = recommendedMovies[0].released
+        genre.text = recommendedMovies[0].genre
+        //year.text = recommendedMovies[0].year
+        description.text = recommendedMovies[0].description
 
         //AsyncTask
         doAsync {
 
-            for (i in 0..100) {
-                println(i)
-            }
-
             uiThread {
                 //Update the UI thread here
-                Toast.makeText(context, "AHAHAHAHAHAHAHAH", Toast.LENGTH_LONG).show()
-                println("CACA")
+                Toast.makeText(context, "Welcome back", Toast.LENGTH_LONG).show()
             }
 
         }
 
         return rootView
+    }
+
+    private fun sendGet() {
+        val url = "http://www.omdbapi.com/?i=tt3896198&apikey=13e569"
+        val obj = URL(url)
+
+        with(obj.openConnection() as HttpURLConnection) {
+            // optional default is GET
+            requestMethod = "GET"
+
+
+            println("\nSending 'GET' request to URL : $url")
+            println("Response Code : $responseCode")
+
+            BufferedReader(InputStreamReader(inputStream)).use {
+                val response = StringBuffer()
+
+                var inputLine = it.readLine()
+                while (inputLine != null) {
+                    response.append(inputLine)
+                    inputLine = it.readLine()
+                }
+                println(response.toString())
+            }
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -157,38 +211,5 @@ class HomeFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
-    }
-
-    fun addMovieRecommended() {
-
-        moviesRecommended.add("Movie Title yeah")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-        moviesRecommended.add("Movie Title")
-
-    }
-
-    fun addNewMovie() {
-
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-        newMovies.add("Movie Title")
-
     }
 }

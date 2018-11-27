@@ -10,8 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.applog.movielist.Adapter.ActionMovieAdapter
+import com.example.applog.movielist.Adapter.RomanceAdapter
 
 import com.example.applog.movielist.R
+import com.example.applog.movielist.Services.MovieApiService
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,7 +53,7 @@ class RomanceFragment : Fragment() {
         addMovie()
 
         romanceMovieViewManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        romanceMovieViewAdapter = ActionMovieAdapter(movies)
+        romanceMovieViewAdapter = RomanceAdapter(MovieApiService().getRomanceMovies())
 
         romanceMovieRecyclerView = rootView.findViewById<RecyclerView>(R.id.romance_movie_rc) as RecyclerView
         romanceMovieRecyclerView.layoutManager = romanceMovieViewManager

@@ -88,6 +88,7 @@
                                 card_view:layout_constraintTop_toTopOf="parent"
                                 android:textColor="@color/white"
                                 android:layout_marginTop="60dp"
+                                android:id="@+id/at_the_moment_title"
                                 android:textStyle="bold"/>
 
                         <TextView
@@ -100,6 +101,7 @@
                                 android:textColor="@color/white"
                                 card_view:layout_constraintTop_toTopOf="parent"
                                 android:layout_marginTop="100dp"
+                                android:id="@+id/at_the_moment_runtime"
                                 android:textStyle="bold"/>
 
                         <TextView
@@ -111,6 +113,7 @@
                                 android:layout_marginStart="200dp"
                                 android:textColor="@color/white"
                                 card_view:layout_constraintTop_toTopOf="parent"
+                                android:id="@+id/at_the_released"
                                 android:layout_marginTop="140dp"
                                 android:textStyle="bold"/>
 
@@ -119,6 +122,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/movie_genre_tv_text"
                                 card_view:layout_constraintStart_toStartOf="parent"
+                                android:id="@+id/at_the_moment_genre"
                                 android:layout_marginLeft="200dp"
                                 android:layout_marginStart="200dp"
                                 card_view:layout_constraintTop_toTopOf="parent"
@@ -131,6 +135,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/movie_year_tv_text"
                                 card_view:layout_constraintStart_toStartOf="parent"
+                                android:id="@+id/at_the_moment_year"
                                 android:layout_marginLeft="200dp"
                                 android:layout_marginStart="200dp"
                                 card_view:layout_constraintTop_toTopOf="parent"
@@ -142,6 +147,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Description"
+                                android:id="@+id/at_the_moment_description"
                                 card_view:layout_constraintStart_toStartOf="parent"
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginStart="16dp"

@@ -10,8 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.applog.movielist.Adapter.ActionMovieAdapter
+import com.example.applog.movielist.Adapter.HorrorAdapter
 
 import com.example.applog.movielist.R
+import com.example.applog.movielist.Services.MovieApiService
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,7 +53,7 @@ class HorrorFragment : Fragment() {
         addMovie()
 
         horrorMovieViewManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        horrorMovieViewAdapter = ActionMovieAdapter(movies)
+        horrorMovieViewAdapter = HorrorAdapter(MovieApiService().getHorrorMovies())
 
         horrorMovieRecyclerView = rootView.findViewById<RecyclerView>(R.id.horror_movie_rc) as RecyclerView
         horrorMovieRecyclerView.layoutManager = horrorMovieViewManager

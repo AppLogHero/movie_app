@@ -20,9 +20,9 @@
             <item
                     android:id="@+id/nav_romance"
                     android:title="Romance"/>
-            <item
+            <!--<item
                     android:id="@+id/nav_horror"
-                    android:title="Horror"/>
+                    android:title="Horror"/>-->
             <item
                     android:id="@+id/nav_SF"
                     android:title="SF"/>

@@ -10,8 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.applog.movielist.Adapter.ActionMovieAdapter
+import com.example.applog.movielist.Models.Movie
 
 import com.example.applog.movielist.R
+import com.example.applog.movielist.Services.MovieApiService
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,7 +33,7 @@ class SFFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var listener: OnFragmentInteractionListener? = null
 
-    val movies: ArrayList<String> = ArrayList()
+    val movies: ArrayList<Movie> = ArrayList()
 
     private lateinit var sfMovieRecyclerView: RecyclerView
     private lateinit var sfMovieViewAdapter: RecyclerView.Adapter<*>
@@ -48,10 +50,8 @@ class SFFragment : Fragment() {
     ): View? {
         val rootView: View = inflater.inflate(R.layout.fragment_sf, container, false)
 
-        addMovie()
-
         sfMovieViewManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        sfMovieViewAdapter = ActionMovieAdapter(movies)
+        sfMovieViewAdapter = ActionMovieAdapter(MovieApiService().getSFMovies())
 
         sfMovieRecyclerView = rootView.findViewById<RecyclerView>(R.id.sf_movie_rc) as RecyclerView
         sfMovieRecyclerView.layoutManager = sfMovieViewManager
@@ -113,23 +113,5 @@ class SFFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
-    }
-
-    fun addMovie() {
-
-        movies.add("Movie Title yeah")
-        movies.add("Movie Title")
-        movies.add("Movie Title")
-        movies.add("Movie Title")
-        movies.add("Movie Title")
-        movies.add("Movie Title")
-        movies.add("Movie Title")
-        movies.add("Movie Title")
-        movies.add("Movie Title")
-        movies.add("Movie Title")
-        movies.add("Movie Title")
-        movies.add("Movie Title")
-        movies.add("Movie Title")
-
     }
 }

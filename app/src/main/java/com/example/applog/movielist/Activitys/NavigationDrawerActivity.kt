@@ -9,12 +9,18 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
+import com.example.applog.movielist.DataBase.MovieDataBase
+import com.example.applog.movielist.Entity.MovieEntity
 import com.example.applog.movielist.Fragment.*
 import com.example.applog.movielist.Helper.PreferencesHelper
 import com.example.applog.movielist.R
 import kotlinx.android.synthetic.main.activity_navigation_drawer.*
 import kotlinx.android.synthetic.main.app_bar_navigation_drawer.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener, ActionFragment.OnFragmentInteractionListener, AdventureFragment.OnFragmentInteractionListener, RomanceFragment.OnFragmentInteractionListener, HorrorFragment.OnFragmentInteractionListener, SFFragment.OnFragmentInteractionListener
 {
@@ -39,6 +45,28 @@ class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigatio
         nav_view.setNavigationItemSelectedListener(this)
 
         replaceFragement(R.id.home_activity, HomeFragment())
+
+        doAsync {
+
+            val dataBase = MovieDataBase.getInstance(context = this@NavigationDrawerActivity)
+            dataBase.movieDao().insertMovie(MovieEntity(null,"Yeah","122","YEAH"))
+
+            uiThread {
+                println("INSERT MOVIE")
+            }
+        }
+
+        doAsync {
+
+            val dataBase = MovieDataBase.getInstance(context = this@NavigationDrawerActivity)
+            val movie = dataBase.movieDao().selectAll()
+
+            uiThread {
+                println(movie.toString())
+            }
+
+        }
+
     }
 
     private fun replaceFragement(id: Int, fragment: Fragment) {
@@ -76,10 +104,6 @@ class NavigationDrawerActivity : AppCompatActivity(), NavigationView.OnNavigatio
             R.id.nav_romance -> {
                 title = "Romance"
                 replaceFragement(R.id.home_activity, RomanceFragment())
-            }
-            R.id.nav_horror -> {
-                title = "Horror"
-                replaceFragement(R.id.home_activity, HorrorFragment())
             }
             R.id.nav_SF -> {
                 title = "SF"

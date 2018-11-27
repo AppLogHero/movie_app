@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.example.applog.movielist.Models.Movie
 import com.example.applog.movielist.R
 import kotlinx.android.synthetic.main.movie_list_item.view.*
 
-class RecommendedMovieAdapter(private val myDataset: ArrayList<String>) :
+class RecommendedMovieAdapter(private val myDataset: ArrayList<Movie>) :
     RecyclerView.Adapter<RecommendedMovieAdapter.RecommendedViewHolder>() {
 
     class RecommendedViewHolder(val view: View, context: Context) : RecyclerView.ViewHolder(view) {
@@ -33,10 +34,10 @@ class RecommendedMovieAdapter(private val myDataset: ArrayList<String>) :
     }
 
     override fun onBindViewHolder(holder: RecommendedViewHolder, position: Int) {
-        holder.tvMovieTitle.text = myDataset[position]
+        holder.tvMovieTitle.text = myDataset[position].title
 
         Glide.with(holder.theSuperContext)
-            .load("https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg")
+            .load(myDataset[position].poster)
             .into(holder.imageView)
 
     }
